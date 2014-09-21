@@ -20,7 +20,7 @@ Simon van der Veldt - [svanderveldt@xebia.com](mailto:svanderveldt@xebia.com)
 
 
 !SUB
-Install boot2docker
+Install Docker or boot2docker
 
 [docs.docker.com/installation](http://docs.docker.com/installation)
 

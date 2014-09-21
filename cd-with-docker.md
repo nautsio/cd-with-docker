@@ -128,6 +128,34 @@ docker run -ti go-hello-world-http /gopath/go-hello-world-http
 - Run tests <span class="fragment">from `tester` container</span>
 - Artifact container is the System Under Test <!-- .element: class="fragment" -->
 
+!SUB
+### Build tester
+`Dockerfile`
+```
+FROM google/golang
+
+RUN apt-get update && apt-get install -y curl
+
+ADD test.sh /test.sh
+
+CMD /test.sh http://$SUT_PORT_80_TCP_ADDR:$SUT_PORT_80_TCP_PORT
+```
+```
+docker build -t tester ./tester/
+```
+
+!SUB
+### Run Sytem Under Test
+```
+docker run -d -p 80:80 --name sut go-hello-world-http /gopath/go-hello-world-http
+```
+
+!SUB
+### Run tests
+```
+docker run --link sut:sut 
+```
+
 
 !SLIDE
 ## Deploy

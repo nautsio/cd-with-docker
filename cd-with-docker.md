@@ -124,11 +124,11 @@ docker run -ti go-hello-world-http /gopath/go-hello-world-http
 
 
 !SLIDE
-# Test
+## Test
 - Run tests <span class="fragment">from `tester` container</span>
 - Artifact container is the System Under Test <!-- .element: class="fragment" -->
 
 
 !SLIDE
-# Deploy
+## Deploy
 - Deploy the artifact<span class="fragment"> (container image) to the Docker registry</span>

@@ -1,58 +1,134 @@
 # Continuous Delivery Pipeline
 
-!SUB
-- Code
-- Build
-- Test
-- Deploy
-
+!SLIDE
+![Docker logo](img/docker-logo.png) <!-- .element: class="noborder" -->
 
 !SUB
-# Code
-- Develop
-- Commit
-- Post-commit hook triggers new "delivery"
+## Docker introduction
+A portable, lightweight application runtime and packaging tool.
 
-
-!SUB
-# Build
-- Get sources
-- Compile sources
-
+_[docker.com](https://www.docker.com)_
 
 !SUB
-# Test
-- Test
+## Docker features
 
+- Docker engine
+- Dockerfiles
+- Docker hub
 
-!SUB
-# Deploy
-- Deploy
 
 !SLIDE
+# Docker advantages
+for
 # Continuous Delivery
-with
-# Docker
-
 
 !SUB
-# Code
+## Faster
+- Containers are fast!
+- Slow one-time event happen only once on image creation not on instance creation
+
+!NOTE
+One-time example initialisation of the app has to happen just once. Fort example for test and production, same artifact is started which had it's initialization done @ build time
+
+!SUB
+## Better
+- Isolation
+- Scalability
+- Consistent/reproducible results
+- Portable/host-independent
+- Infrastructure as code
+- Immutable infrastructure
+- Chaos monkey/gorilla
+
+!SUB
+## Cheaper
+- Less overhead
+
+
+!SLIDE
+# Continuous Delivery Pipeline
+with
+
+![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
+
+
+!SLIDE
+## Code
 - Develop
 - Commit
 - Post-commit hook triggers new "delivery"
 
 
-!SUB
-# Build
+!SLIDE
+## Build
 - Get sources
-- Compile sources in `builder` container
-
+- Compile sources <span class="fragment">in `builder` container</span>
+- The container image is the artifact <!-- .element: class="fragment" -->
 
 !SUB
+### Builder
+As builder we use the de-facto container for a language
+
+In this case `google/golang`
+
+!SUB
+### First build
+```
+docker run -ti google/golang bash
+```
+
+```
+git clone https://github.com/simonvanderveldt/go-hello-world-http /gopath/src
+cd /gopath
+go build go-hello-world-http
+```
+
+!SUB
+### Create image
+```
+docker ps -l
+docker commit {CONTAINER ID} go-hello-world-http
+```
+
+!SUB
+### Run image
+```
+docker run -ti go-hello-world-http /gopath/go-hello-world-http
+```
+
+!SUB
+### Build using Dockerfile
+`Dockerfile`
+```
+FROM google/golang
+
+WORKDIR /gopath
+
+ADD ./buildenv /gopath
+
+RUN go build go-hello-world-http
+```
+
+!SUB
+### Build image
+```
+git clone https://github.com/simonvanderveldt/go-hello-world-http ./buildenv/src
+docker build -t go-hello-world-http .
+```
+
+!SUB
+### Run image
+```
+docker run -ti go-hello-world-http /gopath/go-hello-world-http
+```
+
+
+!SLIDE
 # Test
-- Run tests from `tester` container
+- Run tests <span class="fragment">from `tester` container</span>
+- Artifact container is the System Under Test <!-- .element: class="fragment" -->
 
 
-!SUB
+!SLIDE
 # Deploy
-- Push the image to the Docker registry
+- Deploy the artifact<span class="fragment"> (container image) to the Docker registry</span>

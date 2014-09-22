@@ -69,22 +69,22 @@ for
 
 !SUB
 ## Faster
-- Spawning containers is fast/cheap
 - Slow one-time events happen only once on _image_ creation, not on _instance_ creation
+- Creating instances is fast/cheap
 
 !NOTE
 One-time example initialisation of the app has to happen just once. Fort example for test and production, same artifact is started which had it's initialization done @ build time
 
 !SUB
 ## Better
+- Same images used for development and production
 - Isolation
 - Consistent and reproducible results
 - Portable/host-independent
 - Scalability
-- Reusability
 
 !SUB
 ## And more:
-- Supports collaboration between Dev and Ops
+- Encourages collaboration between Dev and Ops
 - Version control of your Docker images
 - Share your images using the Docker Hub

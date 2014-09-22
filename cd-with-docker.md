@@ -149,7 +149,7 @@ The builder is a defined environment in which we build our code.
 ```dockerfile
 FROM google/golang
 
-ENV GOPATH /gopathv
+ENV GOPATH /gopath
 
 WORKDIR /gopath
 
@@ -212,10 +212,20 @@ docker build -t tester ./tester/
 !SUB
 ### Run tests
 ```bash
-docker run --link go-hello-world-v2:sut tester 
+docker run --link go-hello-world-http-v2:sut tester 
 ```
 
+!SUB
+### Check
+Try to change the code, rebuild and check if the test fails
 
 !SLIDE
 ## Deploy
 - Deploy the artifact<span class="fragment"> (container image) to the Docker registry</span>
+
+!SUB
+### Optional: push to Docker Hub
+```
+docker login
+docker push {DOCKER_USERNAME}/go-hello-world-http-v2
+```

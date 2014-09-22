@@ -129,6 +129,14 @@ docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 ```
 
 !SUB
+### Check
+What can we improve? 
+```
+docker images | grep go-hello-world-http
+> go-hello-world-http latest d31a90b28d50 2 minutes ago 565.3 MB
+```
+
+!SUB
 ### Getting rid of our build-time tools
 We don't need them during run-time
 
@@ -182,6 +190,13 @@ ENTRYPOINT /go-hello-world-http
 ```bash
 docker build -t go-hello-world-http-v2 ./go-hello-world-http-v2
 docker run -d -p 80:80 --name go-hello-world-http-v2 go-hello-world-http-v2
+```
+
+!SUB
+### Result
+```
+docker images | grep hello-world-http-v2
+> go-hello-world-http-v2 latest 903b479cd26c 2 minutes ago 11.3 MB
 ```
 
 !SLIDE

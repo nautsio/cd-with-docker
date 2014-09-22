@@ -236,7 +236,7 @@ Make the test pass!
 
 !SLIDE
 ## Deploy
-- Deploy the artifact<span class="fragment"> (container image) to the Docker registry</span>
+- Deploy the artifact<span class="fragment"> (container image) to the Docker Hub</span>
 
 !SUB
 ### Optional: push to Docker Hub

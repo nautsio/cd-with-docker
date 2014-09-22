@@ -1,0 +1,11 @@
+#!/bin/sh
+
+unset GIT_DIR
+
+if [ ! -d $BUILDENV ]; then
+    git clone $REPODIR $BUILDENV
+else
+    cd $BUILDENV && git pull
+fi
+
+sh /home/docker/orchestrator.sh

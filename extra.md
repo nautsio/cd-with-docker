@@ -7,6 +7,10 @@ Build a working pipeline from the building blocks
 Hints: Jenkins, Rundeck, post-receive hook?
 
 !SUB
+## Continuous Deployment
+Deploy the image automatically to a production environment
+
+!SUB
 ## Pipeline-in-a-box
 We want to be host-agnostic
 

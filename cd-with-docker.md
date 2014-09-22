@@ -77,52 +77,48 @@ In this case `google/golang`
 ```
 docker run -ti google/golang bash
 ```
-
+inside the container:
 ```
-git clone https://github.com/simonvanderveldt/go-hello-world-http /gopath/src
 cd /gopath
+git clone https://github.com/simonvanderveldt/go-hello-world-http /gopath/src
 go build go-hello-world-http
 exit
 ```
 
 !SUB
-### Create image
-```
+### Create and run image
+```bash
 docker ps -l
 docker commit {CONTAINER ID} go-hello-world-http
-docker images
-```
-
-!SUB
-### Run image
-```
+docker images #go-hello-world-http image is visible
 docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 ```
 
 !SUB
-### Build using Dockerfile
-`Dockerfile`
+### Check application
+```bash
+curl {CONTAINERIP}
+> Hello, World!
 ```
+
+!SUB
+### Build using Dockerfile
+`builder/Dockerfile`
+```dockerfile
 FROM google/golang
 
 WORKDIR /gopath
 
-ADD ./buildenv /gopath
+RUN git clone https://github.com/simonvanderveldt/go-hello-world-http /gopath/src
 
 RUN go build go-hello-world-http
 ```
 
 !SUB
-### Build image
-```
-git clone https://github.com/simonvanderveldt/go-hello-world-http ./buildenv/src
+### Build and run image
+```bash
 docker build -t go-hello-world-http .
-```
-
-!SUB
-### Run image
-```
-docker run -ti -p 80:80 go-hello-world-http /gopath/go-hello-world-http
+docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 ```
 
 

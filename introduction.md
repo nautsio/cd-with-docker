@@ -45,6 +45,7 @@ Get the files
 [github.com/xebia/cd-with-docker](https://github.com/xebia/cd-with-docker)
 ```
 git clone https://github.com/xebia/cd-with-docker.git
+cd /home/docker/cd-with-docker
 ```
 
 

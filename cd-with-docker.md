@@ -183,7 +183,7 @@ ENTRYPOINT /go-hello-world-http
 ```
 ```bash
 docker build -t go-hello-world-http-v2 go-hello-world-http-v2/
-docker run go-hello-world-http-v2
+docker run --name go-hello-world-http-v2 go-hello-world-http-v2
 ```
 
 !SLIDE
@@ -201,6 +201,8 @@ RUN apt-get update && apt-get install -y curl
 
 ADD test.sh /test.sh
 
+RUN chmod +x /test.sh
+
 CMD /test.sh http://$SUT_PORT_80_TCP_ADDR:$SUT_PORT_80_TCP_PORT
 ```
 ```bash
@@ -208,15 +210,9 @@ docker build -t tester ./tester/
 ```
 
 !SUB
-### Run Sytem Under Test
-```bash
-docker run -d -p 80:80 --name sut go-hello-world-http /gopath/go-hello-world-http
-```
-
-!SUB
 ### Run tests
 ```bash
-docker run --link sut:sut 
+docker run --link go-hello-world-v2:sut tester 
 ```
 
 

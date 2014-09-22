@@ -151,12 +151,15 @@ docker build -t builder ./builder
 !SUB
 ### Build the application
 ```bash
-git clone https://github.com/simonvanderveldt/go-hello-world-http /home/docker/buildenv/src
-docker run --volume /home/docker/buildenv:/gopath builder go-hello-world-http
+git clone https://github.com/simonvanderveldt/go-hello-world-http /home/docker/cd-with-docker/go-hello-world-http-v2/src
+docker run --volume /home/docker/cd-with-docker/go-hello-world-http-v2/:/gopath builder go-hello-world-http
 ```
+Build artifact is now available at
+
+`/home/docker/cd-with-docker/go-hello-world-http-v2/buildenv`
 
 !SUB
-### Run the application in a minimal container
+### Build and run the image
 `go-hello-world-http-v2/Dockerfile`
 ```dockerfile
 FROM busybox:ubuntu-14.04

@@ -74,11 +74,11 @@ In this case `google/golang`
 
 !SUB
 ### First build
-```
+```bash
 docker run -ti google/golang bash
 ```
 inside the container:
-```
+```bash
 cd /gopath
 git clone https://github.com/simonvanderveldt/go-hello-world-http /gopath/src
 go build go-hello-world-http
@@ -130,7 +130,7 @@ docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 !SUB
 ### Build tester
 `Dockerfile`
-```
+```dockerfile
 FROM google/golang
 
 RUN apt-get update && apt-get install -y curl
@@ -139,19 +139,19 @@ ADD test.sh /test.sh
 
 CMD /test.sh http://$SUT_PORT_80_TCP_ADDR:$SUT_PORT_80_TCP_PORT
 ```
-```
+```bash
 docker build -t tester ./tester/
 ```
 
 !SUB
 ### Run Sytem Under Test
-```
+```bash
 docker run -d -p 80:80 --name sut go-hello-world-http /gopath/go-hello-world-http
 ```
 
 !SUB
 ### Run tests
-```
+```bash
 docker run --link sut:sut 
 ```
 

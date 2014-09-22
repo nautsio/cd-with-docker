@@ -26,14 +26,14 @@ Install Docker or boot2docker
 
 !SUB
 Start boot2docker and ssh into it
-```
+```bash
 boot2docker start
 boot2docker ssh
 ```
 
 !SUB
 Write down the IP of the boot2docker instance:
-```
+```bash
 boot2docker ip
 ```
 
@@ -43,7 +43,7 @@ boot2docker ip
 Get the files
 
 [github.com/xebia/cd-with-docker](https://github.com/xebia/cd-with-docker)
-```
+```bash
 git clone https://github.com/xebia/cd-with-docker.git
 cd /home/docker/cd-with-docker
 ```

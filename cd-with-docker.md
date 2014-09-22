@@ -91,8 +91,13 @@ docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 !SUB
 ### Does it work?
 ```bash
-curl {CONTAINERIP}
+curl localhost
 > Hello, world!
+```
+
+```bash  
+# Stop the container
+docker kill {CONTAINER ID}
 ```
 
 !SUB
@@ -127,7 +132,11 @@ docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 ### Getting rid of our build-time tools
 We don't need them during run-time
 
-Solution: generic builder <!-- .element: class="fragment" -->
+
+Solution: 2 Dockerfiles <!-- .element: class="fragment" -->
+
+- Generic builder <!-- .element: class="fragment" -->
+- Application <!-- .element: class="fragment" -->
 
 !SUB
 ### Generic builder
@@ -156,23 +165,23 @@ docker run --rm --volume /home/docker/cd-with-docker/go-hello-world-http-v2/:/go
 ```
 Build artifact is now available at
 
-`/home/docker/cd-with-docker/go-hello-world-http-v2/buildenv`
+`/home/docker/cd-with-docker/go-hello-world-http-v2`
 
 !SUB
-### Build and run the image
+### Application
 `go-hello-world-http-v2/Dockerfile`
 ```dockerfile
 FROM busybox:ubuntu-14.04
 
 EXPOSE 80
 
-ADD buildenv/go-hello-world-http /go-hello-world-http
+ADD go-hello-world-http /go-hello-world-http
 
 ENTRYPOINT /go-hello-world-http 
 ```
 ```bash
-docker build -t go-hello-world-http-v2 go-hello-world-http-v2/
-docker run --name go-hello-world-http-v2 go-hello-world-http-v2
+docker build -t go-hello-world-http-v2 ./go-hello-world-http-v2
+docker run -d -p 80:80 --name go-hello-world-http-v2 go-hello-world-http-v2
 ```
 
 !SLIDE

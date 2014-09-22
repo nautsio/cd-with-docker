@@ -32,6 +32,14 @@ boot2docker ssh
 ```
 
 !SUB
+Write down the IP of the boot2docker instance:
+```
+boot2docker ip
+```
+
+
+
+!SUB
 Get the files
 
 [github.com/xebia/cd-with-docker](https://github.com/xebia/cd-with-docker)

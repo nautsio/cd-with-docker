@@ -82,6 +82,7 @@ docker run -ti google/golang bash
 git clone https://github.com/simonvanderveldt/go-hello-world-http /gopath/src
 cd /gopath
 go build go-hello-world-http
+exit
 ```
 
 !SUB
@@ -89,12 +90,13 @@ go build go-hello-world-http
 ```
 docker ps -l
 docker commit {CONTAINER ID} go-hello-world-http
+docker images
 ```
 
 !SUB
 ### Run image
 ```
-docker run -ti go-hello-world-http /gopath/go-hello-world-http
+docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 ```
 
 !SUB
@@ -120,7 +122,7 @@ docker build -t go-hello-world-http .
 !SUB
 ### Run image
 ```
-docker run -ti go-hello-world-http /gopath/go-hello-world-http
+docker run -ti -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 ```
 
 

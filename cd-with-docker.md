@@ -95,11 +95,17 @@ docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 ```
 
 !SUB
-### Check application
+### Does it work?
 ```bash
 curl {CONTAINERIP}
 > Hello, World!
 ```
+
+!SUB
+### Check
+What have we done thus far?
+
+What can we improve? <!-- .element: class="fragment" -->
 
 !SUB
 ### Build using Dockerfile

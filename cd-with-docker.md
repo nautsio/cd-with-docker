@@ -152,7 +152,7 @@ docker build -t builder ./builder
 ### Build the application
 ```bash
 git clone https://github.com/simonvanderveldt/go-hello-world-http /home/docker/cd-with-docker/go-hello-world-http-v2/src
-docker run --volume /home/docker/cd-with-docker/go-hello-world-http-v2/:/gopath builder go-hello-world-http
+docker run --rm --volume /home/docker/cd-with-docker/go-hello-world-http-v2/:/gopath builder go-hello-world-http
 ```
 Build artifact is now available at
 

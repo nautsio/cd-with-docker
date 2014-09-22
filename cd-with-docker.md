@@ -149,6 +149,23 @@ git clone https://github.com/simonvanderveldt/go-hello-world-http /home/docker/b
 docker run --volume /home/docker/buildenv:/gopath builder go-hello-world-http
 ```
 
+!SUB
+### Run the application in a minimal container
+`go-hello-world-http-v2/Dockerfile`
+```dockerfile
+FROM busybox:ubuntu-14.04
+
+EXPOSE 80
+
+ADD buildenv/go-hello-world-http /go-hello-world-http
+
+ENTRYPOINT /go-hello-world-http 
+```
+```bash
+docker build -t go-hello-world-http-v2 go-hello-world-http-v2/
+docker run go-hello-world-http-v2
+```
+
 !SLIDE
 ## Test
 - Run tests <span class="fragment">from `tester` container</span>

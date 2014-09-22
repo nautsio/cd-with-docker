@@ -107,6 +107,8 @@ What can we improve? <!-- .element: class="fragment" -->
 ```dockerfile
 FROM google/golang
 
+ENV GOPATH /gopathv
+
 WORKDIR /gopath
 
 RUN git clone https://github.com/simonvanderveldt/go-hello-world-http /gopath/src
@@ -117,7 +119,7 @@ RUN go build go-hello-world-http
 !SUB
 ### Build and run image
 ```bash
-docker build -t go-hello-world-http .
+docker build -t go-hello-world-http ./builder
 docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 ```
 
@@ -141,6 +143,31 @@ docker run --rm -v /home/vagrant/buildenv:/gopath builder-go go build -v go-hell
 ### Builder
 The builder is a defined environment in which we build our code.
 
+### Generic builder
+`builder/Dockerfile`
+```dockerfile
+FROM google/golang
+
+ENV GOPATH /gopathv
+
+WORKDIR /gopath
+
+ENTRYPOINT ["go", "build"]
+
+CMD ["."]
+```
+
+```
+docker build -t builder ./builder
+```
+
+!SUB
+### Build the application
+```bash
+git clone https://github.com/simonvanderveldt/go-hello-world-http /home/docker/buildenv/src
+docker run --volume /home/docker/buildenv:/gopath builder go-hello-world-http
+```
+
 
 !SLIDE
 ## Test
@@ -149,7 +176,7 @@ The builder is a defined environment in which we build our code.
 
 !SUB
 ### Build tester
-`Dockerfile`
+`tester/Dockerfile`
 ```dockerfile
 FROM google/golang
 

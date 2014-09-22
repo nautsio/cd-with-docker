@@ -1,4 +1,5 @@
 # Continuous Delivery Pipeline
+![Continuous Deployment Pipeline](img/continuous-deployment-pipeline.png) <!-- .element: class="noborder" -->
 
 !SLIDE
 ![Docker logo](img/docker-logo.png) <!-- .element: class="noborder" -->

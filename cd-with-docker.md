@@ -103,11 +103,11 @@ What can we improve? <!-- .element: class="fragment" -->
 
 !SUB
 ### Build using Dockerfile
-`builder/Dockerfile`
+`go-hello-world-http/Dockerfile`
 ```dockerfile
 FROM google/golang
 
-ENV GOPATH /gopathv
+ENV GOPATH /gopath
 
 WORKDIR /gopath
 
@@ -119,29 +119,15 @@ RUN go build go-hello-world-http
 !SUB
 ### Build and run image
 ```bash
-docker build -t go-hello-world-http ./builder
+docker build -t go-hello-world-http ./go-hello-world-http
 docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 ```
 
 !SUB
-### Check
-What have we done thus far?
+### Getting rid of our build-time tools
+We don't need them during run-time
 
-What can we improve? <!-- .element: class="fragment" -->
-
-!SUB
-### Miniaturize the image
-We don't need build-time tools during run-time
-
-!SUB
-### Extract the artifacts using a volume
-```
-docker run --rm -v /home/vagrant/buildenv:/gopath builder-go go build -v go-hello-world-http
-```
-
-!SUB
-### Builder
-The builder is a defined environment in which we build our code.
+Solution: generic builder <!-- .element: class="fragment" -->
 
 !SUB
 ### Generic builder
@@ -165,12 +151,15 @@ docker build -t builder ./builder
 !SUB
 ### Build the application
 ```bash
-git clone https://github.com/simonvanderveldt/go-hello-world-http /home/docker/buildenv/src
-docker run --volume /home/docker/buildenv:/gopath builder go-hello-world-http
+git clone https://github.com/simonvanderveldt/go-hello-world-http /home/docker/cd-with-docker/go-hello-world-http-v2/src
+docker run --volume /home/docker/cd-with-docker/go-hello-world-http-v2/:/gopath builder go-hello-world-http
 ```
+Build artifact is now available at
+
+`/home/docker/cd-with-docker/go-hello-world-http-v2/buildenv`
 
 !SUB
-### Run the application in a minimal container
+### Build and run the image
 `go-hello-world-http-v2/Dockerfile`
 ```dockerfile
 FROM busybox:ubuntu-14.04

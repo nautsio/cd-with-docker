@@ -107,6 +107,8 @@ curl {CONTAINERIP}
 ```dockerfile
 FROM google/golang
 
+ENV GOPATH /gopathv
+
 WORKDIR /gopath
 
 RUN git clone https://github.com/simonvanderveldt/go-hello-world-http /gopath/src
@@ -117,10 +119,35 @@ RUN go build go-hello-world-http
 !SUB
 ### Build and run image
 ```bash
-docker build -t go-hello-world-http .
+docker build -t go-hello-world-http ./builder
 docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 ```
 
+!SUB
+### Generic builder
+`builder/Dockerfile`
+```dockerfile
+FROM google/golang
+
+ENV GOPATH /gopathv
+
+WORKDIR /gopath
+
+ENTRYPOINT ["go", "build"]
+
+CMD ["."]
+```
+
+```
+docker build -t builder ./builder
+```
+
+!SUB
+### Build the application
+```bash
+git clone https://github.com/simonvanderveldt/go-hello-world-http /home/docker/buildenv/src
+docker run --volume /home/docker/buildenv:/gopath builder go-hello-world-http
+```
 
 !SLIDE
 ## Test
@@ -129,7 +156,7 @@ docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
 
 !SUB
 ### Build tester
-`Dockerfile`
+`tester/Dockerfile`
 ```dockerfile
 FROM google/golang
 

@@ -107,7 +107,7 @@ What can we improve? <!-- .element: class="fragment" -->
 ```dockerfile
 FROM google/golang
 
-ENV GOPATH /gopathv
+ENV GOPATH /gopath
 
 WORKDIR /gopath
 

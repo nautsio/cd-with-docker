@@ -143,6 +143,7 @@ docker run --rm -v /home/vagrant/buildenv:/gopath builder-go go build -v go-hell
 ### Builder
 The builder is a defined environment in which we build our code.
 
+!SUB
 ### Generic builder
 `builder/Dockerfile`
 ```dockerfile

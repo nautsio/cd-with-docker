@@ -214,8 +214,10 @@ docker run --link go-hello-world-http-v2:sut tester
 ```
 
 !SUB
-### Check
-Try to change the code, rebuild and check if the test fails
+### Test result
+The test fails :(
+
+Make the test pass!
 
 !SLIDE
 ## Deploy

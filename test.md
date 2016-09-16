@@ -1,4 +1,3 @@
-
 ## Test
 - Run tests <span class="fragment">from `tester` container</span>
 - Artifact container is the System Under Test <!-- .element: class="fragment" -->

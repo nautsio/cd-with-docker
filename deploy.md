@@ -15,3 +15,8 @@
 docker login
 docker push {DOCKER_USERNAME}/go-hello-world-http-v2
 ```
+
+
+
+!SLIDE
+## Exercises

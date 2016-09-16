@@ -7,8 +7,109 @@
 - Compile sources <span class="fragment">in `builder` container</span>
 - The container image is the artifact <!-- .element: class="fragment" -->
 
+!SUB
+## Dockerfile
 
-!SLIDE
+<p>Simple format</p>
+
+```
+# Comment
+INSTRUCTION arguments
+```
+
+<p style="clear: both;"><br/>See <a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a></p>
+
+!SUB
+## Instructions
+
+<ul>
+<li>FROM</li>
+<li>MAINTAINER</li>
+<li>RUN</li>
+<li>CMD</li>
+<li>EXPOSE</li>
+<li>ENTRYPOINT</li>
+<li>ENV</li>
+<li>ADD</li>
+<li>VOLUME</li>
+<li>USER</li>
+<li>WORKDIR</li>
+</ul>
+
+
+
+!SUB
+## FROM
+
+<center>
+<ul>
+<li>Syntax: FROM &lt;image&gt;[:&lt;tag&gt;]</li>
+<li>Sets the base image for this image</li>
+<li>FROM must be the first non-comment instruction in the Dockerfile.</li>
+<li>Can appear multiple times to create multiple images</li>
+</ul>
+</center>
+
+
+!SUB
+## RUN
+
+<center>
+<ul>
+<li>Syntax: RUN &lt;command&gt;</li>
+<li>Runs the specified command, and commits the result to the image</li>
+<li>RUN can be used multiple times</li>
+<center>
+</ul>
+</center>
+
+!SUB
+## CMD
+
+<center>
+<ul>
+<li>Syntax:
+<ul>
+<li>CMD ["executable","param1","param2"]</li>
+<li>CMD ["param1","param2"], use with <code>ENTRYPOINT</li>
+<li>CMD command param1 param2</li>
+</ul>
+</li>
+<li>Provides defaults when executing a container</li>
+<li>CMD can only be used <em>one</em> time</li>
+</ul>
+</center>
+
+
+!SUB
+## ENTRYPOINT
+
+<center>
+<ul>
+<li>Syntax:
+<ul>
+<li>ENTRYPOINT ["executable","param1","param2"]</li>
+<li>ENTRYPOINT command param1 param2</li>
+</ul>
+</li>
+<li>Similar as CMD, but cannot be overwritten with command-line parameters</li>
+<li>ENTRYPOINT can only be used <em>one</em> time</li>
+</ul>
+</center>
+
+
+!SUB
+## EXPOSE
+
+<center>
+<ul>
+<li>Syntax: EXPOSE &lt;port&gt; [&lt;port&gt; ...]</li>
+<li>Defines which ports to expose</li>
+</ul>
+</center>
+
+
+!SUB
 ## Docker Image Layers
 
 !SUB

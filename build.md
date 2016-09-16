@@ -1,4 +1,3 @@
-!SLIDE
 # Build
 - Get sources
 - Compile sources <span class="fragment">in `builder` container</span>

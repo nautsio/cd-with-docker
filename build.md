@@ -4,6 +4,43 @@
 - Compile sources <span class="fragment">in `builder` container</span>
 - The container image is the artifact <!-- .element: class="fragment" -->
 
+
+
+!SUB
+## Creating a Docker image
+<center><div style="width: 75%; height: auto;"><img src="img/create-docker-image.png"/></div></center>
+
+!SUB
+## Dockerfile
+
+```
+FROM ubuntu
+RUN apt-get update && apt-get install -y apache2 && apt-get clean
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+EXPOSE 80
+CMD ["/usr/sbin/apache2", "-D", "FOREGROUND"]
+```
+
+!SUB
+## Docker Images
+
+<div style="position: absolute; right: 0; top:100; width: 25%; height: auto;"><img src="img/docker-image.png"/></div>
+- contain everything needed to run the app
+- are portable across daemons
+- have built in layers
+  - ordered to actions, Add file, Expose port, Run
+- are stored in a Registry
+
+
+!SUB
+## Docker Hub - Image Registry
+<div style="position: absolute; right: 0; top:100; width: 40%; height: auto;"><img src="img/docker-hub.png"/></div>
+- Contains Docker images
+- Public Registry with official images
+- Can host your own private Registry
+
+
 !SUB
 ## First build
 ```bash

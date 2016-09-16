@@ -1,3 +1,4 @@
+!SLIDE
 # Continuous Delivery
 with
 
@@ -11,7 +12,7 @@ Simon van der Veldt - [svanderveldt@xebia.com](mailto:svanderveldt@xebia.com)
 
 
 !SLIDE
-# Setup
+# Preparations
 
 
 !SUB
@@ -34,57 +35,3 @@ Get the files
 git clone https://github.com/xebia/cd-with-docker.git
 cd /home/docker/cd-with-docker
 ```
-
-
-!SLIDE
-# Continuous Delivery Pipeline
-![Continuous Deployment Pipeline](img/continuous-deployment-pipeline.png) <!-- .element: class="noborder" -->
-
-!NOTE
-No unit tests (for now)
-No deployment to production (for now)
-
-
-!SLIDE
-![Docker logo](img/docker-logo.png) <!-- .element: class="noborder" -->
-
-!SUB
-## Docker introduction
-Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications.
-
-_[docker.com](https://www.docker.com)_
-
-!SUB
-## Docker features
-
-- Docker engine
-- Dockerfiles
-- Docker hub
-
-
-!SLIDE
-# Docker advantages
-for
-# Continuous Delivery
-
-!SUB
-## Faster
-- Slow one-time events happen only once on _image_ creation, not on _instance_ creation
-- Creating instances is fast/cheap
-
-!NOTE
-One-time example initialisation of the app has to happen just once. Fort example for test and production, same artifact is started which had it's initialization done @ build time
-
-!SUB
-## Better
-- Same images used for development and production
-- Isolation
-- Consistent and reproducible results
-- Portable/host-independent
-- Scalability
-
-!SUB
-## And more:
-- Encourages collaboration between Dev and Ops
-- Version control of your Docker images
-- Share your images using the Docker Hub

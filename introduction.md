@@ -1,4 +1,3 @@
-!SLIDE
 # Continuous Delivery
 with
 

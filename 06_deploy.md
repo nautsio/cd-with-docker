@@ -1,26 +1,30 @@
+<!-- .slide: data-background="#6B205E" -->
+# Deploy
 
-## Deploy
+!SUB
+# Deployment workflow
 - Deploy the artifact<span class="fragment"> (container image) to the Docker Hub</span>
 
 !SUB
-## Running a container
+# Running a container
+<br />
 <center><div style="width: 75%; height: auto;"><img src="img/run-docker-container.png"/></div></center>
 
 
-!SLIDE
-## Exercises
 
+!SLIDE
+<!-- .slide: data-background="#6B205E" -->
+# Exercises: Deploy with Docker
 
 !SUB
-### Optional: push to Docker Hub
+# Optional: push to Docker Hub
 ```
 docker login
 docker push {DOCKER_USERNAME}/go-hello-world-http-v2
 ```
 
-
 !SUB
-## running tomcat
+# running tomcat
 
 ```
 # Start a tomcat container
@@ -43,8 +47,7 @@ $ curl http://$IPADDRESS:8080
 ```
 
 !SUB
-
-## creating a farm of tomcat
+# creating a farm of tomcat
 
 ```
 count=0

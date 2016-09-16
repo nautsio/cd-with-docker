@@ -1,23 +1,17 @@
-
 <!-- .slide: data-background="#6B205E" -->
-<br />
 <center>
-<br />
-<br />
-
 #Continuous Delivery
-with
-![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
 
-Slides: [xebia.github.io/cd-with-docker](http://xebia.github.io/cd-with-docker)
+with
+
+![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
 
 **Maarten van den Ende** mvandenende@xebia.com <br />
 **Simon van der Veldt** svanderveldt@xebia.com
 
-
 !SLIDE
+<!-- .slide: data-background="#6B205E" -->
 # Preparations
-
 
 !SUB
 # Install Docker and Git
@@ -31,15 +25,18 @@ If you are on windows install **git for windows**
 [git-for-windows.github.io](https://git-for-windows.github.io/)
 
 !SUB
-Open an terminal
+# Verify installation Docker
+
+Open terminal or git bash
 ```bash
 docker info
 ```
 
 !SUB
-Get the files
+# Get the files
 
 [github.com/xebia/cd-with-docker](https://github.com/xebia/cd-with-docker)
+Open terminal or git bash
 ```bash
 git clone https://github.com/xebia/cd-with-docker.git
 cd /home/docker/cd-with-docker

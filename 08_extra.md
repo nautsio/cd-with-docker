@@ -1,4 +1,5 @@
-# Extra exercises
+<!-- .slide: data-background="#6B205E" -->
+# Exercises: extra
 
 !SUB
 ## Connect the dots

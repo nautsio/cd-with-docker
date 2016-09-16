@@ -1,3 +1,7 @@
+<!-- .slide: data-background="#6B205E" -->
+# Docker
+
+<center>
 ![Docker logo](img/docker-logo.png) <!-- .element: class="noborder" -->
 
 !SUB
@@ -54,8 +58,8 @@ And it is fast!
 
 
 !SLIDE
-![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
-## Exercises
+<!-- .slide: data-background="#6B205E" -->
+# Exercises: Docker
 
 !SUB
 ## Getting Started

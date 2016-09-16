@@ -1,9 +1,13 @@
-## Test
+<!-- .slide: data-background="#6B205E" -->
+# Test
+
+!SUB
+# Tests with Docker
 - Run tests <span class="fragment">from `tester` container</span>
 - Artifact container is the System Under Test <!-- .element: class="fragment" -->
 
 !SUB
-### Build tester
+# Build tester
 `tester/Dockerfile`
 ```dockerfile
 FROM google/golang
@@ -21,13 +25,13 @@ docker build -t tester ./tester/
 ```
 
 !SUB
-### Run tests
+# Run tests
 ```bash
 docker run --link go-hello-world-http-v2:sut tester
 ```
 
 !SUB
-### Test result
+# Test result
 The test fails :(
 
 Make the test pass!

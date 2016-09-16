@@ -6,6 +6,22 @@ Docker is an open platform for developers and sysadmins to build, ship, and run 
 
 _[docker.com](https://www.docker.com)_
 
+
+- Container management for Linux
+- Abstraction for DevOps workflow
+- Adds images, image repository and version control to containers
+
+!SUB
+## Docker, the goodies
+
+You get all the goodies of virtual machine per appliance, but without the cost.
+
+- Filesystem isolation
+- Resource isolation
+- Network isolation
+
+And it is fast!
+
 !SUB
 ## Docker features
 
@@ -36,29 +52,9 @@ _[docker.com](https://www.docker.com)_
 <center><div style="width: 75%; height: auto;"><img src="img/devops-concerns.png"/></div></center>
 
 
-!SUB
-## Docker, the goodies
-
-You get all the goodies of virtual machine per appliance, but without the cost.
-
-- Filesystem isolation
-- Resource isolation
-- Network isolation
-
-And it is fast!
-
-
-
-!SUB
-## What is Docker?
-
-- Container management for Linux
-- Abstraction for DevOps workflow
-- Adds images, image repository and version control to containers
-
 
 !SLIDE
-## Exercises
+## Docker exercises
 
 !SUB
 ## Getting Started Docker

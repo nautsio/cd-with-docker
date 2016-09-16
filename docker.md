@@ -57,6 +57,17 @@ And it is fast!
 - Adds images, image repository and version control to containers
 
 
-
 !SLIDE
-## Docker intro exercises here?
+## Exercises
+
+!SUB
+## Getting Started Docker
+
+Install your Docker on your machine (any one of docker-machine, Docker for Mac, Docker for Windows, native Docker on Linux)
+
+Test installation:
+
+```
+$ docker pull ubuntu
+$ docker run ubuntu /bin/echo "hello world"
+```

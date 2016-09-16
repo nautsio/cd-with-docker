@@ -2,6 +2,8 @@
 with
 # Docker
 
+<center><div style="width: 75%; height: auto;"><img src="img/docker-basic-components.png"/></div></center>
+
 !NOTE
 No unit tests (for now)
 No deployment to production (for now)

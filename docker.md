@@ -18,8 +18,6 @@ _[docker.com](https://www.docker.com)_
 ## Why Docker?
 
 
-
-
 !SUB
 ## Docker has taken the world by Storm!
 
@@ -57,10 +55,6 @@ And it is fast!
 - Container management for Linux
 - Abstraction for DevOps workflow
 - Adds images, image repository and version control to containers
-
-!SUB
-## Basic Components
-<center><div style="width: 75%; height: auto;"><img src="img/docker-basic-components.png"/></div></center>
 
 
 

@@ -27,7 +27,7 @@ You get all the goodies of virtual machine per appliance, but without the cost.
 And it is fast!
 
 !SUB
-## Docker features
+# Docker features
 
 - Docker engine
 - Dockerfiles
@@ -35,11 +35,7 @@ And it is fast!
 
 
 !SUB
-## Why Docker?
-
-
-!SUB
-## Docker has taken the world by Storm!
+# Docker has taken the world by Storm!
 
 - 400.000.000 downloads
 - 300.000+ Dockerized applications
@@ -47,12 +43,14 @@ And it is fast!
 - 150.000.000 dollar in funding
 
 !SUB
-## Why? It Supports True DevOps!
+# Why? It Supports True DevOps!
+<br />
 <center><div style="width: 75%; height: auto;"><img src="img/true-devops.jpg"/></div></center>
 
 
 !SUB
-## Separation of Concerns
+# Separation of Concerns
+<br />
 <center><div style="width: 75%; height: auto;"><img src="img/devops-concerns.png"/></div></center>
 
 

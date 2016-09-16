@@ -18,8 +18,7 @@ _[docker.com](https://www.docker.com)_
 ## Why Docker?
 
 
-!SLIDE
-## Docker intro exercises here?
+
 
 !SUB
 ## Docker has taken the world by Storm!
@@ -102,3 +101,7 @@ CMD ["/usr/sbin/apache2", "-D", "FOREGROUND"]
 !SUB
 ## Running a container
 <center><div style="width: 75%; height: auto;"><img src="img/run-docker-container.png"/></div></center>
+
+
+!SLIDE
+## Docker intro exercises here?

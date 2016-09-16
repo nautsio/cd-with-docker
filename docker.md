@@ -54,16 +54,44 @@ And it is fast!
 
 
 !SLIDE
-## Docker exercises
+![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
+## Exercises
 
 !SUB
-## Getting Started Docker
-
-Install your Docker on your machine (any one of docker-machine, Docker for Mac, Docker for Windows, native Docker on Linux)
-
-Test installation:
+## Getting Started
 
 ```
-$ docker pull ubuntu
-$ docker run ubuntu /bin/echo "hello world"
+# Show all running containers
+$ docker ps
+CONTAINER ID        IMAGE                                     COMMAND                  CREATED             STATUS              PORTS                                              NAMES
+```
+
+
+!SUB
+## Run a container
+```
+$ docker run debian /bin/echo "hello world"
+Unable to find image 'debian:latest' locally
+latest: Pulling from library/debian
+8ad8b3f87b37: Already exists
+Digest: sha256:2340a704d1f8f9ecb51c24d9cbce9f5ecd301b6b8ea1ca5eaba9edee46a2436d
+Status: Downloaded newer image for debian:latest
+hello world
+```
+
+
+!SUB
+## Run an interactive container
+```
+$ docker run -ti debian
+root@d83aa96f567a:/# whoami
+root
+
+root@d83aa96f567a:/# uname -a
+Linux d83aa96f567a 4.4.16-boot2docker #1 SMP Fri Jul 29 00:13:24 UTC 2016 x86_64 GNU/Linux
+
+root@d83aa96f567a:/# docker ps
+bash: docker: command not found
+
+root@d83aa96f567a:/# exit
 ```

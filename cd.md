@@ -3,6 +3,7 @@
 
 !SUB
 ## What is Continuous Delivery?
+![Continuous Delivery](img/continuous-delivery.png) <!-- .element: class="noborder" -->
 
 
 !SUB

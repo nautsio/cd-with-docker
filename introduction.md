@@ -1,13 +1,18 @@
-# Continuous Delivery
-with
 
+<!-- .slide: data-background="#6B205E" -->
+<br />
+<center>
+<br />
+<br />
+
+#Continuous Delivery
+with
 ![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
 
 Slides: [xebia.github.io/cd-with-docker](http://xebia.github.io/cd-with-docker)
 
-Bas Tichelaar - [btichelaar@xebia.com](btichelaar@xebia.com)
-
-Simon van der Veldt - [svanderveldt@xebia.com](mailto:svanderveldt@xebia.com)
+**Maarten van den Ende** mvandenende@xebia.com <br />
+**Simon van der Veldt** svanderveldt@xebia.com
 
 
 !SLIDE
@@ -15,15 +20,20 @@ Simon van der Veldt - [svanderveldt@xebia.com](mailto:svanderveldt@xebia.com)
 
 
 !SUB
-Install Docker or boot2docker
+# Install Docker and Git
 
-[docs.docker.com/installation](http://docs.docker.com/installation)
+Download and install docker for your **platform**
+
+[www.docker.com/products](https://www.docker.com/products/docker)
+
+If you are on windows install **git for windows**
+
+[git-for-windows.github.io](https://git-for-windows.github.io/)
 
 !SUB
-Start boot2docker and ssh into it
+Open an terminal
 ```bash
-boot2docker start
-boot2docker ssh
+docker info
 ```
 
 !SUB

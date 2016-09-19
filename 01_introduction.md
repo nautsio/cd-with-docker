@@ -10,34 +10,43 @@ with
 **Simon van der Veldt** svanderveldt@xebia.com
 
 !SLIDE
-<!-- .slide: data-background="#6B205E" -->
+<!-- .slide: data-background="#6B205E" center -->
 # Preparations
 
 !SUB
-# Install Docker and Git
+# Install required software
 
-Download and install docker for your **platform**
+Install docker for your platform
+- [Linux](https://docs.docker.com/engine/installation/linux/)
+- [OS X](https://docs.docker.com/engine/installation/mac/#/docker-toolbox)
+- [Windows](https://docs.docker.com/toolbox/toolbox_install_windows/)
 
-[www.docker.com/products](https://www.docker.com/products/docker)
-
-If you are on windows install **git for windows**
-
-[git-for-windows.github.io](https://git-for-windows.github.io/)
+Also install git
+- [Linux](https://git-scm.com/download/linux)
+- [OS X](https://git-scm.com/download/mac)
+- [Windows](https://git-for-windows.github.io/)
 
 !SUB
-# Verify installation Docker
+# Verify Docker installation
 
-Open terminal or git bash
+Open a terminal
 ```bash
 docker info
+Containers: 6
+ Running: 0
+ Paused: 0
+ Stopped: 6
+Images: 187
+Server Version: 1.12.0
+...
 ```
 
 !SUB
-# Get the files
+# Get the workshop files
 
-[github.com/xebia/cd-with-docker](https://github.com/xebia/cd-with-docker)
-Open terminal or git bash
+[github.com/nautsio/cd-with-docker](https://github.com/nautsio/cd-with-docker)
+
 ```bash
-git clone https://github.com/xebia/cd-with-docker.git
-cd /home/docker/cd-with-docker
+git clone https://github.com/nautsio/cd-with-docker.git
+cd cd-with-docker
 ```

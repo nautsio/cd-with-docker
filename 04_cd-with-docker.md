@@ -1,23 +1,13 @@
 <!-- .slide: data-background="#6B205E" -->
-#Continuous Delivery with #Docker
+<center>
+#Continuous Delivery
+with
+
+![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
 
 !SUB
-# Docker workflow
-
-- Build, Ship, Run
-
-<center><div style="width: 75%; height: auto;"><img src="img/docker-basic-components.png"/></div></center>
-
-!NOTE
-No unit tests (for now)
-No deployment to production (for now)
-
-!SUB
-Explain why Docker is a good fit for Continuous Delivery
-
-# Docker advantages
-for
-# Continuous Delivery
+<!-- .slide: data-background="#6B205E" -->
+# Why is Docker a good fit for Continuous Delivery? <!-- .element: style="text-align: center" -->
 
 !SUB
 ## Faster
@@ -29,34 +19,29 @@ One-time example initialisation of the app has to happen just once. Fort example
 
 !SUB
 ## Better
-- Same images used for development and production
-- Isolation
-- Consistent and reproducible results
+- Same image used for development and production
+- Same image can be run locally
 - Portable/host-independent
-- Scalability
+- Consistent and reproducible results
+- Isolated
+- Easy to scale horizontally
 
 !SUB
-## And more:
+## And more
 - Encourages collaboration between Dev and Ops
-- Version control of your Docker images
+- Version control how you build your images
 - Share your images using the Docker Hub
 
 
-!SUB
-Explain how/where we're going to use Docker to create a CD pipeline
-
+!SLIDE
+<!-- .slide: data-background="#6B205E" -->
+<center>
 # Continuous Delivery Pipeline
-
 with
 
 ![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
 
-!SLIDE
+!SUB
 <!-- .slide: data-background="#6B205E" -->
-# Exercises
-
-!SUB
-# Exercises to create parts of the pipeline here?
-
-!SUB
-# Exercises to create a complete pipeline here?
+<center>
+![Continuous Deployment Pipeline](img/continuous-deployment-pipeline.png) <!-- .element: class="noborder" -->

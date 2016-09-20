@@ -117,6 +117,15 @@ sha256:34d091010050c9e94de643af60b4196dc132ad6f20825d779ab70bccf1f732b0
 $ docker images
 REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
 go-hello-world-http                  latest              34d091010050        14 seconds ago      675.4 MB
+
+# See what happened in each layer that our image exists of
+$ docker history go-hello-world-http
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+62484befa0e3        10 seconds ago      bash                                            5.708 MB
+002b233310bb        12 days ago         /bin/sh -c #(nop) COPY file:f6191f2c86edc9343   2.478 kB
+<missing>           12 days ago         /bin/sh -c #(nop)  WORKDIR /go                  0 B
+<missing>           12 days ago         /bin/sh -c mkdir -p "$GOPATH/src" "$GOPATH/bi   0 B
+...
 ```
 
 !SUB
@@ -167,7 +176,8 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 # Check
 What have we done thus far?
 
-What can we improve? <!-- .element: class="fragment" -->
+What can we improve?
+- Automate the steps to build the image <!-- .element: class="fragment" -->
 
 
 !SLIDE
@@ -177,8 +187,7 @@ What can we improve? <!-- .element: class="fragment" -->
 
 !SUB
 ## Dockerfile
-
-<p>Simple format</p>
+Simple DSL to describe how to build an image</p>
 
 ```
 # Comment
@@ -245,7 +254,7 @@ INSTRUCTION arguments
 !SUB
 ## Dockerfile
 
-`go-hello-world-http-v2/Dockerfile`
+`go-hello-world-http/Dockerfile`
 ```dockerfile
 FROM golang
 
@@ -265,12 +274,26 @@ Step 2 : RUN go get github.com/simonvanderveldt/go-hello-world-http
 Removing intermediate container 1c4e7bf0833e
 Successfully built 8db642e96eed
 
+# See what happened in each layer that our image exists of
+$ docker history go-hello-world-http
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+91a8a211556f        13 minutes ago      /bin/sh -c #(nop)  EXPOSE 80/tcp                0 B
+de2c1fef8d39        51 minutes ago      /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "/go/b   0 B
+8db642e96eed        55 minutes ago      /bin/sh -c go get github.com/simonvanderveldt   5.708 MB
+002b233310bb        12 days ago         /bin/sh -c #(nop)  COPY file:f6191f2c86edc9343  2.478 kB
+<missing>           12 days ago         /bin/sh -c #(nop)  WORKDIR /go                  0 B
+
 $ docker run -d -p 80:80 go-hello-world-http /go/bin/go-hello-world-http
 8ce667efcb4b2d785b4805987b798130998d65e4c75daa7a60b354e04b314005
 ```
 
 !SUB
-# What can we improve?
+# Check
+What have we done thus far?
+
+What can we improve?
+- Automatically start our application when we run the container <!-- .element: class="fragment" -->
+- Declare on which port our application runs <!-- .element: class="fragment" -->
 
 !SUB
 ## Enhanced Dockerfile
@@ -280,6 +303,7 @@ FROM golang
 RUN go get github.com/simonvanderveldt/go-hello-world-http
 
 CMD /go/bin/go-hello-world-http
+EXPOSE 80
 ```
 
 !SUB
@@ -293,13 +317,20 @@ Step 2 : RUN go get github.com/simonvanderveldt/go-hello-world-http
  ---> Using cache
  ---> 8db642e96eed
 Step 3 : CMD /go/bin/go-hello-world-http
- ---> Running in 9c95af1f97f7
+ ---> Using cache
  ---> de2c1fef8d39
-Removing intermediate container 9c95af1f97f7
-Successfully built de2c1fef8d39
+Step 4 : EXPOSE 80
+ ---> Running in 20a26363a989
+ ---> 91a8a211556f
+Removing intermediate container 20a26363a989
+Successfully built 91a8a211556f
 
-$ docker run -d -p 80:80 go-hello-world-http
+$ docker run -d -P go-hello-world-http
 3f0b7f4f2a92d7165a832c23f2bf3a1b675f18c4ac6c2a4b1e6ccefed310237f
+
+$ docker ps
+CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                   NAMES
+cc245603ef5c        go-hello-world-http   "/bin/sh -c /go/bin/g"   3 seconds ago       Up 2 seconds        0.0.0.0:32768->80/tcp   desperate_jones
 ```
 
 !SUB
@@ -314,7 +345,6 @@ docker images | grep go-hello-world-http
 We don't need/want them during run-time
 
 Solution: 2 images <!-- .element: class="fragment" -->
-
 - Generic builder <!-- .element: class="fragment" -->
 - Application <!-- .element: class="fragment" -->
 

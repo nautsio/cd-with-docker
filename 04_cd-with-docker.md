@@ -38,10 +38,6 @@ One-time example initialisation of the app has to happen just once. Fort example
 <center>
 # Continuous Delivery Pipeline
 with
+# Docker
 
-![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
-
-!SUB
-<!-- .slide: data-background="#6B205E" -->
-<center>
 ![Continuous Deployment Pipeline](img/continuous-deployment-pipeline.png) <!-- .element: class="noborder" -->

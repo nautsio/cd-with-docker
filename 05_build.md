@@ -12,6 +12,147 @@
 - Can be shared by pushing them to an artifact store
 
 !SUB
+## Docker Image Layers
+
+!SUB
+## Filesystems
+<center>
+<p>
+		Linux requires two filesystems<br/>
+<img src="img/docker-filesystems-generic.png" style="width: 50%; height: 50%;" />
+</p>
+</center>
+
+
+!SUB
+## Multiple rootfs
+<center>
+<p>
+		Docker supports multiple rootfs<br/>
+<img src="img/docker-filesystems-multiroot.png" style="width: 50%; height: 50%;" />
+</p>
+</center>
+
+
+!SUB
+## Docker Image
+<center>
+<p>
+		Read-only layers are called images<br/>
+<img src="img/docker-filesystems-debian.png" style="width: 50%; height: 50%;" />
+</p>
+</center>
+
+
+!SUB
+## Stacking images
+<center>
+<p>
+		Images can depend on other images, called parents<br/>
+<img src="img/docker-filesystems-multilayer.png" style="width: 50%; height: 50%;" />
+</p>
+</center>
+
+
+!SUB
+## Writable containers
+<center>
+<p>
+		On top of images docker creates writable containers<br/>
+<img src="img/docker-filesystems-busyboxrw.png" style="width: 50%; height: 50%;" />
+</p>
+</center>
+
+
+!SLIDE <!-- .slide: data-background="#6B205E" -->
+<center>
+# Build exercise: Building an image
+
+!SUB
+# Build the application
+```bash
+$ docker run -ti google/golang bash
+
+# Now we're inside a container!
+root@a6a18f6f77de:/go# cd /gopath
+root@a6a18f6f77de:/go# git clone https://github.com/simonvanderveldt/go-hello-world-http /gopath/src
+root@a6a18f6f77de:/go# go build go-hello-world-http
+root@a6a18f6f77de:/go# exit
+# Now we're outside the container again
+```
+
+!SUB
+# Create the image
+```bash
+# Show the last container that was created
+$ docker ps -l
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
+3ad9242e78fe        google/golang       "bash"              3 seconds ago       Exited (0) 2 seconds ago                       hopeful_chandrasekhar
+
+# Now create an image from our container
+$ docker commit <CONTAINER ID> go-hello-world-http
+
+# Verify the image was created
+$ docker images
+REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
+go-hello-world-http                  latest              d21cfd593b76        3 seconds ago       138.4 MB
+```
+
+!SUB
+# Run a container from the image
+```bash
+$ docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
+
+# Check that the container is running
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+01c65680ba17        google/golang       "/gopath/go-hel..." 2 minutes ago       Up 3 seconds                            mad_darwin
+
+# Check if the application works
+$ curl localhost
+> Hello, world!
+```
+
+!SUB
+# Cleanup
+```bash
+# Stop the container
+$ docker kill <CONTAINER ID>
+
+# Check that the container is no longer running
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+```
+
+!SUB
+# Cleanup part 2
+Stopped containers are not automatically removed!
+
+```
+# Check that the container actually still exists
+$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                    PORTS               NAMES
+01c65680ba17        google/golang       "/gopath/go-hel..." 8 minutes ago       Exited (0) 5 minutes ago                      mad_darwin
+
+# Remove the container
+$ docker rm <CONTAINER ID>
+
+# Check that the container no longer exists
+$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                    PORTS               NAMES
+```
+
+!SUB
+# Check
+What have we done thus far?
+
+What can we improve? <!-- .element: class="fragment" -->
+
+!SUB
+# Dockerfile
+
+!SLIDE
+!SUB
 <center>
 ## How to build an image?
 
@@ -73,125 +214,6 @@ INSTRUCTION arguments
 ## ENV
 - Syntax: `<key> <value>`
 - Sets environment variables in the image
-
-!SUB
-## Docker Image Layers
-
-!SUB
-## Filesystems
-<center>
-<p>
-		Linux requires two filesystems<br/>
-<img src="img/docker-filesystems-generic.png" style="width: 50%; height: 50%;" />
-</p>
-</center>
-
-
-!SUB
-## Multiple rootfs
-<center>
-<p>
-		Docker supports multiple rootfs<br/>
-<img src="img/docker-filesystems-multiroot.png" style="width: 50%; height: 50%;" />
-</p>
-</center>
-
-
-!SUB
-## Docker Image
-<center>
-<p>
-		Read-only layers are called images<br/>
-<img src="img/docker-filesystems-debian.png" style="width: 50%; height: 50%;" />
-</p>
-</center>
-
-
-!SUB
-## Stacking images
-<center>
-<p>
-		Images can depend on other images, called parents<br/>
-<img src="img/docker-filesystems-multilayer.png" style="width: 50%; height: 50%;" />
-</p>
-</center>
-
-
-!SUB
-## Writable containers
-<center>
-<p>
-		On top of images docker creates writable containers<br/>
-<img src="img/docker-filesystems-busyboxrw.png" style="width: 50%; height: 50%;" />
-</p>
-</center>
-
-
-!SLIDE <!-- .slide: data-background="#6B205E" -->
-<center>
-# Build exercises
-
-!SUB
-# Workflow
-- Get sources
-- Compile sources <span class="fragment">in `builder` container</span>
-- The container image is the artifact <!-- .element: class="fragment" -->
-
-!SUB
-# Creating a Docker image
-<center><div style="width: 75%; height: auto;"><img src="img/create-docker-image.png"/></div></center>
-
-!SUB
-# Dockerfile
-
-```
-FROM ubuntu
-RUN apt-get update && apt-get install -y apache2 && apt-get clean
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-EXPOSE 80
-CMD ["/usr/sbin/apache2", "-D", "FOREGROUND"]
-```
-
-!SUB
-# First build
-```bash
-docker run -ti google/golang bash
-```
-inside the container:
-```bash
-cd /gopath
-git clone https://github.com/simonvanderveldt/go-hello-world-http /gopath/src
-go build go-hello-world-http
-exit
-```
-
-!SUB
-# Create and run image
-```bash
-docker ps -l
-docker commit {CONTAINER ID} go-hello-world-http
-docker images #go-hello-world-http image is visible
-docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
-```
-
-!SUB
-# Does it work?
-```bash
-curl localhost
-> Hello, world!
-```
-
-```bash  
-# Stop the container
-docker kill {CONTAINER ID}
-```
-
-!SUB
-# Check
-What have we done thus far?
-
-What can we improve? <!-- .element: class="fragment" -->
 
 !SUB
 # Build using Dockerfile

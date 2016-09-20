@@ -254,7 +254,7 @@ INSTRUCTION arguments
 !SUB
 ## Dockerfile
 
-`go-hello-world-http/Dockerfile`
+`go-hello-world-http-v1/Dockerfile`
 ```dockerfile
 FROM golang
 
@@ -340,8 +340,8 @@ What have we done thus far?
 
 What can we improve?
 ```
-docker images | grep go-hello-world-http
-> go-hello-world-http latest d31a90b28d50 2 minutes ago 675.3 MB
+docker images | grep go-hello-world-http-v2
+> go-hello-world-http-v2 latest d31a90b28d50 2 minutes ago 675.3 MB
 ```
 <!-- .element: class="fragment" -->
 Get rid of the build tools.
@@ -383,7 +383,7 @@ $ cd go-hello-world-http-v3
 $ docker run --rm --volume $(pwd)/go-hello-world-http:/go/src/go-hello-world-http --volume $(pwd)/build:/go builder go-hello-world-http
 
 # We now have a built application
-$ ls -ahl build/go-hello-world-http
+$ ls -hl build/go-hello-world-http
 -rwxr-xr-x  1 simon  staff   5.4M Sep 20 22:13 build/go-hello-world-http
 ```
 
@@ -410,6 +410,6 @@ docker run -d -p 80:80 go-hello-world-http-v3
 !SUB
 # Result
 ```bash
-docker images | grep hello-world-http-v2
+docker images | grep hello-world-http-v3
 > go-hello-world-http-v2  latest  5db0534216f3  58 seconds ago  130.8 MB
 ```

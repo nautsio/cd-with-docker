@@ -72,44 +72,63 @@
 # Build the application
 ```bash
 $ docker run -ti google/golang bash
+root@1cb333018404:/go#
+# Now we're inside the container!
 
-# Now we're inside a container!
-root@a6a18f6f77de:/go# cd /gopath
-root@a6a18f6f77de:/go# git clone https://github.com/simonvanderveldt/go-hello-world-http /gopath/src
-root@a6a18f6f77de:/go# go build go-hello-world-http
-root@a6a18f6f77de:/go# exit
+# Build the application
+root@1cb333018404:/go# go get github.com/simonvanderveldt/go-hello-world-http
+
+# Exit the container
+root@1cb333018404:/go# exit
 # Now we're outside the container again
+```
+
+!SUB
+# Layers advantage: track what's changed
+```bash
+# Show the last container that was created
+$ docker ps -l
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
+1cb333018404        golang              "bash"              3 minutes ago       Exited (0) 13 seconds ago                       clever_fermi
+
+# Show our changes
+$ docker d diff <CONTAINER ID>
+C /go
+C /go/bin
+A /go/bin/go-hello-world-http
+C /go/src
+A /go/src/github.com
+A /go/src/github.com/simonvanderveldt
+A /go/src/github.com/simonvanderveldt/go-hello-world-http
+A /go/src/github.com/simonvanderveldt/go-hello-world-http/.git
+...
 ```
 
 !SUB
 # Create the image
 ```bash
-# Show the last container that was created
-$ docker ps -l
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
-3ad9242e78fe        google/golang       "bash"              3 seconds ago       Exited (0) 2 seconds ago                       hopeful_chandrasekhar
-
 # Now create an image from our container
 $ docker commit <CONTAINER ID> go-hello-world-http
+sha256:34d091010050c9e94de643af60b4196dc132ad6f20825d779ab70bccf1f732b0
 
 # Verify the image was created
 $ docker images
 REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
-go-hello-world-http                  latest              d21cfd593b76        3 seconds ago       138.4 MB
+go-hello-world-http                  latest              34d091010050        14 seconds ago      675.4 MB
 ```
 
 !SUB
-# Run a container from the image
+# Create a container from the image
 ```bash
-$ docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
+$ docker run -d -p 80:80 go-hello-world-http /go/bin/go-hello-world-http
 
 # Check that the container is running
 $ docker ps
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-01c65680ba17        google/golang       "/gopath/go-hel..." 2 minutes ago       Up 3 seconds                            mad_darwin
+CONTAINER ID        IMAGE                 COMMAND                  CREATED              STATUS              PORTS                NAMES
+491462e89e35        go-hello-world-http   "/go/bin/go-hello-wor"   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp   admiring_spence
 
 # Check if the application works
-$ curl localhost
+$ curl 192.168.99.100
 > Hello, world!
 ```
 
@@ -117,7 +136,7 @@ $ curl localhost
 # Cleanup
 ```bash
 # Stop the container
-$ docker kill <CONTAINER ID>
+$ docker stop <CONTAINER ID>
 
 # Check that the container is no longer running
 $ docker ps
@@ -128,11 +147,11 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 # Cleanup part 2
 Stopped containers are not automatically removed!
 
-```
+```bash
 # Check that the container actually still exists
 $ docker ps -a
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                    PORTS               NAMES
-01c65680ba17        google/golang       "/gopath/go-hel..." 8 minutes ago       Exited (0) 5 minutes ago                      mad_darwin
+CONTAINER ID        IMAGE                 COMMAND                  CREATED              STATUS              PORTS                NAMES
+491462e89e35        go-hello-world-http   "/go/bin/go-hello-wor"   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp   admiring_spence
 
 # Remove the container
 $ docker rm <CONTAINER ID>

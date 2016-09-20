@@ -1,11 +1,19 @@
 <!-- .slide: data-background="#6B205E" -->
+<center>
 # Build
 
 !SUB
-# Workflow
-- Get sources
-- Compile sources <span class="fragment">in `builder` container</span>
-- The container image is the artifact <!-- .element: class="fragment" -->
+## Docker Images
+
+<div style="position: absolute; right: 0; top:100; width: 25%; height: auto;"><img src="img/docker-image.png"/></div>
+- Contain everything needed to run the app
+- Are portable across daemons
+- Are created using a simple DSL
+- Can be shared by pushing them to an artifact store
+
+!SUB
+<center>
+## How to build an image?
 
 !SUB
 ## Dockerfile
@@ -21,93 +29,50 @@ INSTRUCTION arguments
 
 !SUB
 ## Instructions
-
-<ul>
-<li>FROM</li>
-<li>MAINTAINER</li>
-<li>RUN</li>
-<li>CMD</li>
-<li>EXPOSE</li>
-<li>ENTRYPOINT</li>
-<li>ENV</li>
-<li>ADD</li>
-<li>VOLUME</li>
-<li>USER</li>
-<li>WORKDIR</li>
-</ul>
-
-
+- FROM
+- COPY
+- RUN
+- CMD
+- EXPOSE
+- ENV
+- And more
 
 !SUB
 ## FROM
+- Syntax: `FROM <image>:<tag>`
+- Sets the base image for this image
+- FROM must be the first non-comment instruction in the Dockerfile
 
-<center>
-<ul>
-<li>Syntax: FROM &lt;image&gt;[:&lt;tag&gt;]</li>
-<li>Sets the base image for this image</li>
-<li>FROM must be the first non-comment instruction in the Dockerfile.</li>
-<li>Can appear multiple times to create multiple images</li>
-</ul>
-</center>
-
+!SUB
+## COPY
+- Syntax:
+  - `COPY <source> <destination>`
+  - `COPY ["<source>", "<destination>"]`
+- Copies files from the local machine into the image
 
 !SUB
 ## RUN
-
-<center>
-<ul>
-<li>Syntax: RUN &lt;command&gt;</li>
-<li>Runs the specified command, and commits the result to the image</li>
-<li>RUN can be used multiple times</li>
-<center>
-</ul>
-</center>
+- Syntax: `RUN <command>`
+- Runs the specified command, and commits the result to the image
+- RUN can be used multiple times
 
 !SUB
 ## CMD
-
-<center>
-<ul>
-<li>Syntax:
-<ul>
-<li>CMD ["executable","param1","param2"]</li>
-<li>CMD ["param1","param2"], use with <code>ENTRYPOINT</li>
-<li>CMD command param1 param2</li>
-</ul>
-</li>
-<li>Provides defaults when executing a container</li>
-<li>CMD can only be used <em>one</em> time</li>
-</ul>
-</center>
-
-
-!SUB
-## ENTRYPOINT
-
-<center>
-<ul>
-<li>Syntax:
-<ul>
-<li>ENTRYPOINT ["executable","param1","param2"]</li>
-<li>ENTRYPOINT command param1 param2</li>
-</ul>
-</li>
-<li>Similar as CMD, but cannot be overwritten with command-line parameters</li>
-<li>ENTRYPOINT can only be used <em>one</em> time</li>
-</ul>
-</center>
-
+- Syntax:
+  - `CMD command param1 param2`
+  - `CMD ["executable", "param1", "param2"]`
+- Provides defaults when executing a container
+- CMD can only be used *one* time
 
 !SUB
 ## EXPOSE
+- Syntax: `EXPOSE <port>`
+- Defines which ports to expose
 
-<center>
-<ul>
-<li>Syntax: EXPOSE &lt;port&gt; [&lt;port&gt; ...]</li>
-<li>Defines which ports to expose</li>
-</ul>
-</center>
-
+!SUB
+## ENV
+- Syntax: `<key> <value>`
+- Sets environment variables in the image
 
 !SUB
 ## Docker Image Layers
@@ -162,6 +127,15 @@ INSTRUCTION arguments
 </center>
 
 
+!SLIDE <!-- .slide: data-background="#6B205E" -->
+<center>
+# Build exercises
+
+!SUB
+# Workflow
+- Get sources
+- Compile sources <span class="fragment">in `builder` container</span>
+- The container image is the artifact <!-- .element: class="fragment" -->
 
 !SUB
 # Creating a Docker image
@@ -178,23 +152,6 @@ ENV APACHE_RUN_GROUP www-data
 EXPOSE 80
 CMD ["/usr/sbin/apache2", "-D", "FOREGROUND"]
 ```
-
-!SUB
-## Docker Images
-
-<div style="position: absolute; right: 0; top:100; width: 25%; height: auto;"><img src="img/docker-image.png"/></div>
-- contain everything needed to run the app
-- are portable across daemons
-- have built in layers
-  - ordered to actions, Add file, Expose port, Run
-- are stored in a Registry
-
-!SUB
-## Docker Hub - Image Registry
-<div style="position: absolute; right: 0; top:100; width: 40%; height: auto;"><img src="img/docker-hub.png"/></div>
-- Contains Docker images
-- Public Registry with official images
-- Can host your own private Registry
 
 !SUB
 # First build

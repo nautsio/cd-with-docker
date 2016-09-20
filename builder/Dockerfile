@@ -1,8 +1,4 @@
-FROM google/golang
-
-ENV GOPATH /gopath
-
-WORKDIR /gopath
+FROM golang
 
 ENTRYPOINT ["go", "build"]
 

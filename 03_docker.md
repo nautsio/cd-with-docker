@@ -43,7 +43,9 @@ _[docker.com](https://www.docker.com)_
 !SLIDE
 <!-- .slide: data-background="#6B205E" -->
 <center>
-# Docker exercises
+## Exercise
+<br>
+# Docker first steps
 
 !SUB
 ## Getting Started

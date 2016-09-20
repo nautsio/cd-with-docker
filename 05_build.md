@@ -66,7 +66,9 @@
 
 !SLIDE <!-- .slide: data-background="#6B205E" -->
 <center>
-# Build exercise: Building an image
+## Exercise
+<br>
+#Building an image</h1>
 
 !SUB
 # Build the application
@@ -144,7 +146,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 ```
 
 !SUB
-# Cleanup part 2
+# Proper cleanup
 Stopped containers are not automatically removed!
 
 ```bash
@@ -167,13 +169,11 @@ What have we done thus far?
 
 What can we improve? <!-- .element: class="fragment" -->
 
-!SUB
-# Dockerfile
 
 !SLIDE
-!SUB
+<!-- .slide: data-background="#6B205E" -->
 <center>
-## How to build an image?
+# Dockerfile
 
 !SUB
 ## Dockerfile
@@ -234,42 +234,86 @@ INSTRUCTION arguments
 - Syntax: `<key> <value>`
 - Sets environment variables in the image
 
+
+!SLIDE
+<!-- .slide: data-background="#6B205E" -->
+<center>
+## Exercise
+<br>
+# Building an image using a Dockerfile
+
 !SUB
-# Build using Dockerfile
-`go-hello-world-http/Dockerfile`
+## Dockerfile
+
+`go-hello-world-http-v2/Dockerfile`
 ```dockerfile
-FROM google/golang
+FROM golang
 
-ENV GOPATH /gopath
-
-WORKDIR /gopath
-
-RUN git clone https://github.com/simonvanderveldt/go-hello-world-http /gopath/src
-
-RUN go build go-hello-world-http
+RUN go get github.com/simonvanderveldt/go-hello-world-http
 ```
 
 !SUB
-# Build and run image
+# Build and run the image
 ```bash
-docker build -t go-hello-world-http ./go-hello-world-http
-docker run -d -p 80:80 go-hello-world-http /gopath/go-hello-world-http
+$ docker build -t go-hello-world-http .
+Sending build context to Docker daemon 2.048 kB
+Step 1 : FROM golang
+ ---> 002b233310bb
+Step 2 : RUN go get github.com/simonvanderveldt/go-hello-world-http
+ ---> Running in 1c4e7bf0833e
+ ---> 8db642e96eed
+Removing intermediate container 1c4e7bf0833e
+Successfully built 8db642e96eed
+
+$ docker run -d -p 80:80 go-hello-world-http /go/bin/go-hello-world-http
+8ce667efcb4b2d785b4805987b798130998d65e4c75daa7a60b354e04b314005
 ```
 
 !SUB
-# Check
-What can we improve?
+# What can we improve?
+
+!SUB
+## Enhanced Dockerfile
+```dockerfile
+FROM golang
+
+RUN go get github.com/simonvanderveldt/go-hello-world-http
+
+CMD /go/bin/go-hello-world-http
+```
+
+!SUB
+# Build and run the enhanced image
+```
+$ docker build -t go-hello-world-http .
+Sending build context to Docker daemon 2.048 kB
+Step 1 : FROM golang
+ ---> 002b233310bb
+Step 2 : RUN go get github.com/simonvanderveldt/go-hello-world-http
+ ---> Using cache
+ ---> 8db642e96eed
+Step 3 : CMD /go/bin/go-hello-world-http
+ ---> Running in 9c95af1f97f7
+ ---> de2c1fef8d39
+Removing intermediate container 9c95af1f97f7
+Successfully built de2c1fef8d39
+
+$ docker run -d -p 80:80 go-hello-world-http
+3f0b7f4f2a92d7165a832c23f2bf3a1b675f18c4ac6c2a4b1e6ccefed310237f
+```
+
+!SUB
+# What can we improve?
 ```
 docker images | grep go-hello-world-http
-> go-hello-world-http latest d31a90b28d50 2 minutes ago 565.3 MB
+> go-hello-world-http latest d31a90b28d50 2 minutes ago 675.3 MB
 ```
 
 !SUB
 # Getting rid of our build-time tools
-We don't need them during run-time
+We don't need/want them during run-time
 
-
-Solution: 2 Dockerfiles <!-- .element: class="fragment" -->
+Solution: 2 images <!-- .element: class="fragment" -->
 
 - Generic builder <!-- .element: class="fragment" -->
 - Application <!-- .element: class="fragment" -->

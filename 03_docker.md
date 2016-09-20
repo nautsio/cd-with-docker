@@ -1,37 +1,23 @@
 <!-- .slide: data-background="#6B205E" -->
+<center>
 # Docker
 
-<center>
-![Docker logo](img/docker-logo.png) <!-- .element: class="noborder" -->
+![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
 
 !SUB
-## What is Docker?
-Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications.
+## What's Docker?
+
+> Docker is the world's leading&nbsp; software containerization platform
 
 _[docker.com](https://www.docker.com)_
 
-
-- Container management for Linux
-- Abstraction for DevOps workflow
-- Adds images, image repository and version control to containers
-
 !SUB
-## Docker, the goodies
+## But what is it really?
 
-You get all the goodies of virtual machine per appliance, but without the cost.
-
-- Filesystem isolation
-- Resource isolation
-- Network isolation
-
-And it is fast!
-
-!SUB
-# Docker features
-
-- Docker engine
-- Dockerfiles
-- Docker hub
+- Process running in isolation (filesystem, resources, networking, user)
+- Images you can share/reuse
+- Simple DSL to describe how to build images
+- Artifact store to share images
 
 
 !SUB
@@ -53,178 +39,46 @@ And it is fast!
 <br />
 <center><div style="width: 75%; height: auto;"><img src="img/devops-concerns.png"/></div></center>
 
-!SUB
-## Docker commands
-<center>
-<ul>
-<li>Runtime</li>
-<li>Information</li>
-<li>Filesystem</li>
-<li>Images</li>
-<li>Repository</li>
-</ul>
-</center>
-
-!SUB
-## Runtime
-<center>
-<table>
-<tbody>
-<tr>
-<td>ps</td>
-<td>List containers</td>
-</tr>
-<tr>
-<td>kill</td>
-<td>Kill a running container</td>
-</tr>
-<tr>
-<td>restart</td>
-<td>Restart a running container</td>
-</tr>
-<tr>
-<td>rm</td>
-<td>Remove a container</td>
-</tr>
-<tr>
-<td>run</td>
-<td>Run a command in a new container</td>
-</tr>
-<tr>
-<td>start</td>
-<td>Start a stopped container</td>
-</tr>
-<tr>
-<td>stop</td>
-<td>Stop a running container</td>
-</tr>
-<tr>
-<td>wait</td>
-<td>Block until a container stops, then print its exit code</td>
-</tr>
-</tbody>
-</table>
-</center>
-
-!SUB
-## Information
-<center>
-<table>
-<tbody>
-<tr>
-<td>info</td>
-<td>Display system-wide information</td>
-</tr>
-<tr>
-<td>inspect</td>
-<td>Return low-level information on a container</td>
-</tr>
-<tr>
-<td>logs</td>
-<td>Fetch the logs of a container</td>
-</tr>
-<tr>
-<td>port</td>
-<td>Lookup the public-facing port which is NAT-ed to PRIVATE_PORT</td>
-</tr>
-<tr>
-<td>attach</td>
-<td>Attach to a running container</td>
-</tr>
-</tbody>
-</table>
-</center>
-
-!SUB
-## Filesystems
-<center>
-<table>
-<tbody>
-<tr>
-<td>insert</td>
-<td>Insert a file in an image</td>
-</tr>
-<tr>
-<td>diff</td>
-<td>Inspect changes on a container's filesystem</td>
-</tr>
-<tr>
-<td>commit</td>
-<td>Create a new image from a container's changes</td>
-</tr>
-</tbody>
-</table>
-</center>
-
-!SUB
-## Images
-<center>
-<table>
-<tbody>
-<tr>
-<td>build</td>
-<td>Build a container from a Dockerfile</td>
-</tr>
-<tr>
-<td>import</td>
-<td>Create a new filesystem image from the contents of a tarball</td>
-</tr>
-<tr>
-<td>export</td>
-<td>Stream the contents of a container as a tar archive</td>
-</tr>
-<tr>
-<td>images</td>
-<td>List images</td>
-</tr>
-<tr>
-<td>rmi</td>
-<td>Remove an image</td>
-</tr>
-<tr>
-<td>history</td>
-<td>Show the history of an image</td>
-</tr>
-</tbody>
-</table>
-</center>
-
-!SUB
-## Repository
-<center>
-<table>
-<tbody>
-<tr>
-<td>login</td>
-<td>Register or Login to the docker registry server</td>
-</tr>
-<tr>
-<td>pull</td>
-<td>Pull an image or a repository from the docker registry server</td>
-</tr>
-<tr>
-<td>push</td>
-<td>Push an image or a repository to the docker registry server</td>
-</tr>
-<tr>
-<td>search</td>
-<td>Search for an image in the docker index</td>
-</tr>
-<tr>
-<td>tag</td>
-<td>Tag an image into a repository</td>
-</tr>
-</tbody>
-</table>
-</center>
 
 !SLIDE
 <!-- .slide: data-background="#6B205E" -->
-# Exercises: Docker
+<center>
+# Docker exercises
 
 !SUB
 ## Getting Started
 
+```
+# Show Docker help text to list all possible commands
+$ docker
+Usage: docker [OPTIONS] COMMAND [arg...]
+       docker [ --help | -v | --version ]
+
+A self-sufficient runtime for containers.
+
+Options:
+
+  --config=~/.docker              Location of client config files
+  -D, --debug                     Enable debug mode
+  -H, --host=[]                   Daemon socket(s) to connect to
+  -h, --help                      Print usage
+  -l, --log-level=info            Set the logging level
+  --tls                           Use TLS; implied by --tlsverify
+  --tlscacert=~/.docker/ca.pem    Trust certs signed only by this CA
+  --tlscert=~/.docker/cert.pem    Path to TLS certificate file
+  --tlskey=~/.docker/key.pem      Path to TLS key file
+  --tlsverify                     Use TLS and verify the remote
+  -v, --version                   Print version information and quit
+
+Commands:
+    attach    Attach to a running container
+    build     Build an image from a Dockerfile
+    commit    Create a new image from a container's changes
+...
+```
+
+!SUB
+## Getting Started
 ```
 # Show all running containers
 $ docker ps

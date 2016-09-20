@@ -264,7 +264,7 @@ RUN go get github.com/simonvanderveldt/go-hello-world-http
 !SUB
 # Build and run the image
 ```bash
-$ docker build -t go-hello-world-http .
+$ docker build -t go-hello-world-http go-hello-world-http-v1
 Sending build context to Docker daemon 2.048 kB
 Step 1 : FROM golang
  ---> 002b233310bb
@@ -297,6 +297,7 @@ What can we improve?
 
 !SUB
 ## Enhanced Dockerfile
+`go-hello-world-http-v2/Dockerfile`
 ```dockerfile
 FROM golang
 
@@ -309,7 +310,7 @@ EXPOSE 80
 !SUB
 # Build and run the enhanced image
 ```
-$ docker build -t go-hello-world-http .
+$ docker build -t go-hello-world-http go-hello-world-http-v2
 Sending build context to Docker daemon 2.048 kB
 Step 1 : FROM golang
  ---> 002b233310bb
@@ -325,78 +326,90 @@ Step 4 : EXPOSE 80
 Removing intermediate container 20a26363a989
 Successfully built 91a8a211556f
 
-$ docker run -d -P go-hello-world-http
+$ docker run -d -P go-hello-world-http-v2
 3f0b7f4f2a92d7165a832c23f2bf3a1b675f18c4ac6c2a4b1e6ccefed310237f
 
 $ docker ps
-CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                   NAMES
-cc245603ef5c        go-hello-world-http   "/bin/sh -c /go/bin/g"   3 seconds ago       Up 2 seconds        0.0.0.0:32768->80/tcp   desperate_jones
+CONTAINER ID        IMAGE                   COMMAND                  CREATED             STATUS              PORTS                   NAMES
+cc245603ef5c        go-hello-world-http-v2  "/bin/sh -c /go/bin/g"   3 seconds ago       Up 2 seconds        0.0.0.0:32768->80/tcp   desperate_jones
 ```
 
 !SUB
-# What can we improve?
+# Check
+What have we done thus far?
+
+What can we improve?
 ```
 docker images | grep go-hello-world-http
 > go-hello-world-http latest d31a90b28d50 2 minutes ago 675.3 MB
 ```
+<!-- .element: class="fragment" -->
+Get rid of the build tools.
+<br>We don't need/want them during run-time <!-- .element: class="fragment" -->
 
 !SUB
-# Getting rid of our build-time tools
-We don't need/want them during run-time
-
-Solution: 2 images <!-- .element: class="fragment" -->
-- Generic builder <!-- .element: class="fragment" -->
-- Application <!-- .element: class="fragment" -->
+# Getting rid of build tools in our image
+Solution: 2 images
+- Builder
+- Application
 
 !SUB
-## Generic builder
+## Builder image
 `builder/Dockerfile`
 ```dockerfile
-FROM google/golang
-
-ENV GOPATH /gopath
-
-WORKDIR /gopath
+FROM golang
 
 ENTRYPOINT ["go", "build"]
 
 CMD ["."]
 ```
 
-```
-docker build -t builder ./builder
-```
-
-!SUB
-# Build the application
 ```bash
-git clone https://github.com/simonvanderveldt/go-hello-world-http /home/docker/cd-with-docker/go-hello-world-http-v2/src
-docker run --rm --volume /home/docker/cd-with-docker/go-hello-world-http-v2/:/gopath builder go-hello-world-http
+$ build -t builder builder
+...
+Successfully built 0dede3ca803b
 ```
-Build artifact is now available at
-
-`/home/docker/cd-with-docker/go-hello-world-http-v2`
 
 !SUB
-# Application
-`go-hello-world-http-v2/Dockerfile`
+# Build the application using the builder image
+```bash
+# Get the sources
+$ git clone https://github.com/simonvanderveldt/go-hello-world-http go-hello-world-http-v3/go-hello-world-http
+Cloning into '/Users/simon/go-hello-world-http'...
+...
+
+# Build the application using the builder image
+$ cd go-hello-world-http-v3
+$ docker run --rm --volume $(pwd)/go-hello-world-http:/go/src/go-hello-world-http --volume $(pwd)/build:/go builder go-hello-world-http
+
+# We now have a built application
+$ ls -ahl build/go-hello-world-http
+-rwxr-xr-x  1 simon  staff   5.4M Sep 20 22:13 build/go-hello-world-http
+```
+
+!SUB
+# Application image
+`go-hello-world-http-v3/Dockerfile`
 ```dockerfile
-FROM busybox:ubuntu-14.04
+FROM debian
 
+COPY build/go-hello-world-http /go-hello-world-http
+
+CMD /go-hello-world-http
 EXPOSE 80
-
-ADD go-hello-world-http /go-hello-world-http
-
-ENTRYPOINT /go-hello-world-http
 ```
+
 ```bash
-docker build -t go-hello-world-http-v2 ./go-hello-world-http-v2
-docker run -d -p 80:80 --name go-hello-world-http-v2 go-hello-world-http-v2
+# Build the application image
+docker build -t go-hello-world-http-v3 .
+
+# Run the application image
+docker run -d -p 80:80 go-hello-world-http-v3
 ```
 
 !SUB
 # Result
-```
+```bash
 docker images | grep hello-world-http-v2
-> go-hello-world-http-v2 latest 903b479cd26c 2 minutes ago 11.3 MB
+> go-hello-world-http-v2  latest  5db0534216f3  58 seconds ago  130.8 MB
 ```

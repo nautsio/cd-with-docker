@@ -409,7 +409,7 @@ EXPOSE 80
 docker build -t go-hello-world-http-v3 .
 
 # Run the application image
-docker run -d -p 80:80 go-hello-world-http-v3
+docker run -d -p 80:80 --name go-hello-world-http-v3 go-hello-world-http-v3
 ```
 
 !SUB

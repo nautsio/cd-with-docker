@@ -50,7 +50,7 @@ _[docker.com](https://www.docker.com)_
 !SUB
 ## Getting Started
 
-```
+```bash
 # Show Docker help text to list all possible commands
 $ docker
 Usage: docker [OPTIONS] COMMAND [arg...]
@@ -81,7 +81,7 @@ Commands:
 
 !SUB
 ## Getting Started
-```
+```bash
 # Show all running containers
 $ docker ps
 CONTAINER ID        IMAGE                                     COMMAND                  CREATED             STATUS              PORTS                                              NAMES
@@ -90,7 +90,7 @@ CONTAINER ID        IMAGE                                     COMMAND           
 
 !SUB
 ## Run a container
-```
+```bash
 $ docker run debian /bin/echo "hello world"
 Unable to find image 'debian:latest' locally
 latest: Pulling from library/debian
@@ -103,7 +103,7 @@ hello world
 
 !SUB
 ## Run an interactive container
-```
+```bash
 $ docker run -ti debian
 root@d83aa96f567a:/# whoami
 root

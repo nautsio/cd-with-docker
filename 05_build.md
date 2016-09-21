@@ -3,6 +3,11 @@
 # Build
 
 !SUB
+## Build workflow
+- Get the application sources <!-- .element: class="fragment" -->
+- Build the application/artifact <!-- .element: class="fragment" --> <span class="fragment">-> The Docker image is the artifact</span>
+
+!SUB
 ## Docker Images
 
 <div style="position: absolute; right: 0; top:100; width: 25%; height: auto;"><img src="img/docker-image.png"/></div>
@@ -68,7 +73,7 @@
 <center>
 ## Exercise
 <br>
-#Building an image</h1>
+#Building an image
 
 !SUB
 # Build the application
@@ -318,7 +323,7 @@ Step 2 : RUN go get github.com/simonvanderveldt/go-hello-world-http
  ---> Using cache
  ---> 8db642e96eed
 Step 3 : CMD /go/bin/go-hello-world-http
- ---> Using cache
+ ---> Running in 804dd7261841
  ---> de2c1fef8d39
 Step 4 : EXPOSE 80
  ---> Running in 20a26363a989
@@ -349,9 +354,9 @@ Get rid of the build tools.
 
 !SUB
 # Getting rid of build tools in our image
-Solution: 2 images
-- Builder
-- Application
+Solution: <span class="fragment">2 images</span>
+- Builder <!-- .element: class="fragment" -->
+- Application <!-- .element: class="fragment" -->
 
 !SUB
 ## Builder image

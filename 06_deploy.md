@@ -3,27 +3,32 @@
 
 !SUB
 # Deployment workflow
-- Deploy the artifact<span class="fragment"> (container image) to the Docker Hub</span>
+- Store the build artifact in an artifact store <!-- .element: class="fragment" -->
+- Get the build artifact from the artifact store and run it where we want it to run <!-- .element: class="fragment" -->
 
 !SUB
-## Docker Hub - Image Registry
+## Docker hub
 <div style="position: absolute; right: 0; top:100; width: 40%; height: auto;"><img src="img/docker-hub.png"/></div>
+- Docker's own (public) artifact store
 - Contains Docker images
-- Public Registry with official images
-- Can host your own private Registry
+  - Official/upstream images
+  - Your own images
+- Images can be private
+- Can automatically build `Dockerfile`s
+
+
+!SLIDE <!-- .slide: data-background="#6B205E" -->
+<center>
+## Exercise
+<br>
+# Push an image to the Docker Hub
 
 !SUB
-# Running a container
-<br />
-<center><div style="width: 75%; height: auto;"><img src="img/run-docker-container.png"/></div></center>
+# Push your image to the Docker Hub
 
-!SLIDE
-<!-- .slide: data-background="#6B205E" -->
-# Exercises: Deploy with Docker
+Create a Docker Hub account at https://hub.docker.com
 
-!SUB
-# Optional: push to Docker Hub
 ```
 docker login
-docker push {DOCKER_USERNAME}/go-hello-world-http-v2
+docker push <DOCKER HUB USERNAME>/go-hello-world-http-v2
 ```

@@ -78,7 +78,7 @@
 !SUB
 # Build the application
 ```bash
-$ docker run -ti google/golang bash
+$ docker run -ti golang bash
 root@1cb333018404:/go#
 # Now we're inside the container!
 
@@ -99,7 +99,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 1cb333018404        golang              "bash"              3 minutes ago       Exited (0) 13 seconds ago                       clever_fermi
 
 # Show our changes
-$ docker d diff <CONTAINER ID>
+$ docker diff <CONTAINER ID>
 C /go
 C /go/bin
 A /go/bin/go-hello-world-http
@@ -315,7 +315,7 @@ EXPOSE 80
 !SUB
 # Build and run the enhanced image
 ```
-$ docker build -t go-hello-world-http go-hello-world-http-v2
+$ docker build -t go-hello-world-http-v2 go-hello-world-http-v2
 Sending build context to Docker daemon 2.048 kB
 Step 1 : FROM golang
  ---> 002b233310bb
@@ -416,5 +416,5 @@ docker run -d -p 80:80 --name go-hello-world-http-v3 go-hello-world-http-v3
 # Result
 ```bash
 docker images | grep hello-world-http-v3
-> go-hello-world-http-v2  latest  5db0534216f3  58 seconds ago  130.8 MB
+> go-hello-world-http-v3  latest  5db0534216f3  58 seconds ago  130.8 MB
 ```

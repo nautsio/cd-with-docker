@@ -91,12 +91,11 @@ CONTAINER ID        IMAGE                                     COMMAND           
 !SUB
 ## Run a container
 ```bash
-$ docker run debian /bin/echo "hello world"
-Unable to find image 'debian:latest' locally
-latest: Pulling from library/debian
-8ad8b3f87b37: Already exists
-Digest: sha256:2340a704d1f8f9ecb51c24d9cbce9f5ecd301b6b8ea1ca5eaba9edee46a2436d
-Status: Downloaded newer image for debian:latest
+$ docker run busybox /bin/echo "hello world"
+Unable to find image 'busybox:latest' locally
+latest: Pulling from library/busybox
+Digest: sha256:a59906e33509d14c036c8678d687bd4eec81ed7c4b8ce907b888c607f6a1e0e6
+Status: Downloaded newer image for busybox:latest
 hello world
 ```
 

@@ -2,24 +2,23 @@
 # Test
 
 !SUB
-# Tests with Docker
-- Run tests <span class="fragment">from `tester` container</span>
-- Artifact container is the System Under Test <!-- .element: class="fragment" -->
+# Test workflow
+- Run the tests <!-- .element: class="fragment" --> <span class="fragment">-> with a "tester" container</span>
+- Run them against the artifact we built <!-- .element: class="fragment" --> <span class="fragment"> -> our Docker image</span>
 
 !SUB
 # Build tester
 `tester/Dockerfile`
 ```dockerfile
-FROM google/golang
+FROM golang
 
 RUN apt-get update && apt-get install -y curl
 
-ADD test.sh /test.sh
-
-RUN chmod +x /test.sh
+COPY test.sh /test.sh
 
 CMD /test.sh http://$SUT_PORT_80_TCP_ADDR:$SUT_PORT_80_TCP_PORT
 ```
+
 ```bash
 docker build -t tester ./tester/
 ```
@@ -27,11 +26,6 @@ docker build -t tester ./tester/
 !SUB
 # Run tests
 ```bash
-docker run --link go-hello-world-http-v2:sut tester
+docker run --link go-hello-world-http-v3:sut tester
+Test succeeded!
 ```
-
-!SUB
-# Test result
-The test fails :(
-
-Make the test pass!
